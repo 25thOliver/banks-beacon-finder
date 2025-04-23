@@ -1,0 +1,93 @@
+
+[
+  {
+    "bank_name": "ABC Bank",
+    "bank_code": "001",
+    "branches": [
+      {
+        "branch_code": "0001",
+        "branch_name": "Main Branch"
+      },
+      {
+        "branch_code": "0002",
+        "branch_name": "Downtown"
+      },
+      {
+        "branch_code": "0003",
+        "branch_name": "Riverside"
+      }
+    ]
+  },
+  {
+    "bank_name": "XYZ Financial",
+    "bank_code": "002",
+    "branches": [
+      {
+        "branch_code": "0001",
+        "branch_name": "City Center"
+      },
+      {
+        "branch_code": "0002",
+        "branch_name": "Westside"
+      },
+      {
+        "branch_code": "0003",
+        "branch_name": "Eastpoint Mall"
+      }
+    ]
+  },
+  {
+    "bank_name": "Metro Trust",
+    "bank_code": "003",
+    "branches": [
+      {
+        "branch_code": "0001",
+        "branch_name": "Corporate Office"
+      },
+      {
+        "branch_code": "0002",
+        "branch_name": "North Avenue"
+      },
+      {
+        "branch_code": "0003",
+        "branch_name": "Southgate"
+      }
+    ]
+  },
+  {
+    "bank_name": "Universal Banking Corp",
+    "bank_code": "004",
+    "branches": [
+      {
+        "branch_code": "0001",
+        "branch_name": "Headquarters"
+      },
+      {
+        "branch_code": "0002",
+        "branch_name": "Airport Road"
+      },
+      {
+        "branch_code": "0003",
+        "branch_name": "Central Square"
+      }
+    ]
+  },
+  {
+    "bank_name": "National Credit Union",
+    "bank_code": "005",
+    "branches": [
+      {
+        "branch_code": "0001",
+        "branch_name": "Main Street"
+      },
+      {
+        "branch_code": "0002",
+        "branch_name": "West End"
+      },
+      {
+        "branch_code": "0003",
+        "branch_name": "University Branch"
+      }
+    ]
+  }
+]
