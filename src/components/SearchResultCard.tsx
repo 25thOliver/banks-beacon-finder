@@ -1,6 +1,6 @@
 
 import { BankWithMatchedBranch } from "@/types/bank";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock, Image as ImageIcon } from "lucide-react";
 
 interface SearchResultCardProps {
   result: BankWithMatchedBranch;
@@ -44,8 +44,23 @@ const SearchResultCard = ({
       className="search-result bg-white rounded-lg border shadow-sm p-4 mb-3 hover:shadow-md transition-shadow"
       style={{ "--index": index } as React.CSSProperties}
     >
-      <div className="flex flex-wrap justify-between">
-        <div className="mb-2">
+      <div className="flex flex-wrap justify-between gap-4 items-start">
+        {/* ICON SECTION */}
+        <div className="flex-shrink-0 mr-4">
+          {result.icon ? (
+            <img
+              src={result.icon}
+              alt={`${result.bank_name} logo`}
+              className="w-12 h-12 object-contain rounded bg-gray-50 border"
+              loading="lazy"
+            />
+          ) : (
+            <span className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded border text-gray-400">
+              <ImageIcon size={32} />
+            </span>
+          )}
+        </div>
+        <div className="flex-1 min-w-0 mb-2">
           <h3
             className="font-medium text-lg"
             dangerouslySetInnerHTML={{
@@ -133,3 +148,4 @@ const SearchResultCard = ({
 };
 
 export default SearchResultCard;
+
