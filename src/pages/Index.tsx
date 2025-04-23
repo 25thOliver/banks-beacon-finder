@@ -6,8 +6,9 @@ import NoResultCard from "@/components/NoResultCard";
 import BankFilter from "@/components/BankFilter";
 import { Bank, BankWithMatchedBranch } from "@/types/bank";
 import { searchBanks } from "@/utils/searchUtils";
+import { fetchBanks } from "@/api/bankApi";
 // @ts-ignore - Import JSON without type errors
-import sampleData from "../data/sample-data.json";
+// import sampleData from "../data/sample-data.json"; // <- Remove this line
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,9 +19,20 @@ const Index = () => {
   const [banks, setBanks] = useState<Bank[]>([]);
 
   useEffect(() => {
-    // In a real app, this would fetch from an API endpoint
-    // For now, we'll use the sample data
-    setBanks(sampleData as Bank[]);
+    // Fetch data from the live API endpoint
+    const loadBanks = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchBanks();
+        setBanks(data);
+      } catch (error) {
+        console.error("Failed to load banks:", error);
+        // You could handle an error state here if needed
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadBanks();
   }, []);
 
   const handleSearch = (term: string) => {
@@ -136,3 +148,4 @@ const Index = () => {
 };
 
 export default Index;
+
