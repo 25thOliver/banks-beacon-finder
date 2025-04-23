@@ -3,90 +3,150 @@
   {
     "bank_name": "ABC Bank",
     "bank_code": "001",
+    "contactInfo": "+254 700 123456",
+    "workingHours": "Mon-Fri: 8am-5pm",
+    "location": "Nairobi, Kenya",
     "branches": [
       {
         "branch_code": "0001",
-        "branch_name": "Main Branch"
+        "branch_name": "Main Branch",
+        "contactInfo": "+254 730 111001",
+        "workingHours": "Mon-Fri: 8am-5pm",
+        "location": "Westlands, Nairobi"
       },
       {
         "branch_code": "0002",
-        "branch_name": "Downtown"
+        "branch_name": "Downtown",
+        "contactInfo": "+254 730 111002",
+        "workingHours": "Mon-Fri: 8am-4pm",
+        "location": "CBD, Nairobi"
       },
       {
         "branch_code": "0003",
-        "branch_name": "Riverside"
+        "branch_name": "Riverside",
+        "contactInfo": "+254 730 111003",
+        "workingHours": "Mon-Fri: 8:30am-4:30pm",
+        "location": "Riverside Drive, Nairobi"
       }
     ]
   },
   {
     "bank_name": "XYZ Financial",
     "bank_code": "002",
+    "contactInfo": "+254 720 222333",
+    "workingHours": "Mon-Fri: 9am-5pm",
+    "location": "Mombasa, Kenya",
     "branches": [
       {
         "branch_code": "0001",
-        "branch_name": "City Center"
+        "branch_name": "City Center",
+        "contactInfo": "+254 730 222001",
+        "workingHours": "Mon-Fri: 9am-4pm",
+        "location": "Mombasa Island"
       },
       {
         "branch_code": "0002",
-        "branch_name": "Westside"
+        "branch_name": "Westside",
+        "contactInfo": "+254 730 222002",
+        "workingHours": "Mon-Fri: 8:30am-5pm",
+        "location": "Likoni"
       },
       {
         "branch_code": "0003",
-        "branch_name": "Eastpoint Mall"
+        "branch_name": "Eastpoint Mall",
+        "contactInfo": "+254 730 222003",
+        "workingHours": "Mon-Fri: 9am-5pm",
+        "location": "Eastpoint, Mombasa"
       }
     ]
   },
   {
     "bank_name": "Metro Trust",
     "bank_code": "003",
+    "contactInfo": "+254 733 333444",
+    "workingHours": "Mon-Fri: 8am-5pm",
+    "location": "Kisumu, Kenya",
     "branches": [
       {
         "branch_code": "0001",
-        "branch_name": "Corporate Office"
+        "branch_name": "Corporate Office",
+        "contactInfo": "+254 730 333001",
+        "workingHours": "Mon-Fri: 8am-5pm",
+        "location": "Milimani, Kisumu"
       },
       {
         "branch_code": "0002",
-        "branch_name": "North Avenue"
+        "branch_name": "North Avenue",
+        "contactInfo": "+254 730 333002",
+        "workingHours": "Mon-Fri: 8am-5pm",
+        "location": "North Avenue, Kisumu"
       },
       {
         "branch_code": "0003",
-        "branch_name": "Southgate"
+        "branch_name": "Southgate",
+        "contactInfo": "+254 730 333003",
+        "workingHours": "Mon-Fri: 8am-4pm",
+        "location": "Southgate, Kisumu"
       }
     ]
   },
   {
     "bank_name": "Universal Banking Corp",
     "bank_code": "004",
+    "contactInfo": "+254 700 444555",
+    "workingHours": "Mon-Fri: 9am-6pm",
+    "location": "Nakuru, Kenya",
     "branches": [
       {
         "branch_code": "0001",
-        "branch_name": "Headquarters"
+        "branch_name": "Headquarters",
+        "contactInfo": "+254 730 444001",
+        "workingHours": "Mon-Fri: 9am-6pm",
+        "location": "Central Nakuru"
       },
       {
         "branch_code": "0002",
-        "branch_name": "Airport Road"
+        "branch_name": "Airport Road",
+        "contactInfo": "+254 730 444002",
+        "workingHours": "Mon-Fri: 8am-4:30pm",
+        "location": "Airport Road, Nakuru"
       },
       {
         "branch_code": "0003",
-        "branch_name": "Central Square"
+        "branch_name": "Central Square",
+        "contactInfo": "+254 730 444003",
+        "workingHours": "Mon-Fri: 9am-4:30pm",
+        "location": "Central Square, Nakuru"
       }
     ]
   },
   {
     "bank_name": "National Credit Union",
     "bank_code": "005",
+    "contactInfo": "+254 799 555666",
+    "workingHours": "Mon-Fri: 8:30am-4:30pm",
+    "location": "Eldoret, Kenya",
     "branches": [
       {
         "branch_code": "0001",
-        "branch_name": "Main Street"
+        "branch_name": "Main Street",
+        "contactInfo": "+254 730 555001",
+        "workingHours": "Mon-Fri: 8:30am-4:30pm",
+        "location": "Main Street, Eldoret"
       },
       {
         "branch_code": "0002",
-        "branch_name": "West End"
+        "branch_name": "West End",
+        "contactInfo": "+254 730 555002",
+        "workingHours": "Mon-Fri: 9am-5pm",
+        "location": "West End, Eldoret"
       },
       {
         "branch_code": "0003",
-        "branch_name": "University Branch"
+        "branch_name": "University Branch",
+        "contactInfo": "+254 730 555003",
+        "workingHours": "Mon-Fri: 8am-4pm",
+        "location": "University Rd, Eldoret"
       }
     ]
   }
