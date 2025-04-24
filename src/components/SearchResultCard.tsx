@@ -39,6 +39,24 @@ const SearchResultCard = ({
 
   // Use info from matched branch or fall back to bank-level info
   const infoData = result.matchedBranch || result;
+  
+  // Format contact info
+  const formatContactInfo = (contactInfo?: any): string | undefined => {
+    if (!contactInfo) return undefined;
+    
+    // Handle if contactInfo is an object with phone1, phone2, email
+    if (typeof contactInfo === 'object') {
+      return [contactInfo.phone1, contactInfo.phone2, contactInfo.email]
+        .filter(Boolean)
+        .join(" / ");
+    }
+    
+    // Handle if contactInfo is a string (legacy data)
+    return contactInfo.toString();
+  };
+  
+  const contactDisplay = formatContactInfo(infoData.contactInfo);
+
   return (
     <div
       className="search-result bg-white rounded-lg border shadow-sm p-4 mb-3 hover:shadow-md transition-shadow"
@@ -77,7 +95,7 @@ const SearchResultCard = ({
       <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl">
         <InfoRow
           icon={<Phone size={16} />}
-          value={infoData.contactInfo}
+          value={contactDisplay}
           label="Contact"
         />
         <InfoRow
@@ -129,7 +147,11 @@ const SearchResultCard = ({
                   <span className="text-xs text-muted-foreground">{branch.branch_code}</span>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-1">
-                  <InfoRow icon={<Phone size={14} />} value={branch.contactInfo} label="Contact" />
+                  <InfoRow 
+                    icon={<Phone size={14} />} 
+                    value={formatContactInfo(branch.contactInfo)} 
+                    label="Contact" 
+                  />
                   <InfoRow icon={<Clock size={14} />} value={branch.workingHours} label="Hours" />
                   <InfoRow icon={<MapPin size={14} />} value={branch.location} label="Location" />
                 </div>
@@ -148,4 +170,3 @@ const SearchResultCard = ({
 };
 
 export default SearchResultCard;
-
