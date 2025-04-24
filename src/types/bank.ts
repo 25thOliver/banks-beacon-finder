@@ -21,6 +21,7 @@ export interface Bank {
   workingHours?: string;
   location?: string;
   branches: Branch[];
+  aliases?: string[]; // Added for the aliases field in your data
 }
 
 export interface BankWithMatchedBranch extends Bank {

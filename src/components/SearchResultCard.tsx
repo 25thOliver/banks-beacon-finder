@@ -12,18 +12,20 @@ const InfoRow = ({
   icon,
   value,
   label,
+  placeholder,
 }: {
   icon: React.ReactNode;
   value?: string;
   label: string;
+  placeholder?: string;
 }) =>
-  value ? (
+  (
     <div className="flex items-center gap-2 text-sm mb-1">
       <span className="inline-flex items-center justify-center w-4 h-4 text-primary">{icon}</span>
       <span className="font-medium">{label}:</span>
-      <span>{value}</span>
+      <span>{value || placeholder || "Not available"}</span>
     </div>
-  ) : null;
+  );
 
 const SearchResultCard = ({
   result,
@@ -56,6 +58,9 @@ const SearchResultCard = ({
   };
   
   const contactDisplay = formatContactInfo(infoData.contactInfo);
+  
+  // Display bank aliases if available
+  const aliasesDisplay = result.aliases?.join(", ");
 
   return (
     <div
@@ -85,6 +90,11 @@ const SearchResultCard = ({
               __html: highlightMatch(result.bank_name),
             }}
           />
+          {aliasesDisplay && (
+            <div className="text-sm text-muted-foreground mb-1">
+              Also known as: {aliasesDisplay}
+            </div>
+          )}
           <div className="inline-flex items-center px-2 py-1 bg-primary/10 rounded text-sm font-medium text-primary">
             Bank Code: <span dangerouslySetInnerHTML={{ __html: highlightMatch(result.bank_code) }} />
           </div>
@@ -97,16 +107,19 @@ const SearchResultCard = ({
           icon={<Phone size={16} />}
           value={contactDisplay}
           label="Contact"
+          placeholder="Contact information not available"
         />
         <InfoRow
           icon={<Clock size={16} />}
           value={infoData.workingHours}
           label="Hours"
+          placeholder="Working hours not available"
         />
         <InfoRow
           icon={<MapPin size={16} />}
           value={infoData.location}
           label="Location"
+          placeholder="Location information not available"
         />
       </div>
 
@@ -151,9 +164,20 @@ const SearchResultCard = ({
                     icon={<Phone size={14} />} 
                     value={formatContactInfo(branch.contactInfo)} 
                     label="Contact" 
+                    placeholder="No contact info" 
                   />
-                  <InfoRow icon={<Clock size={14} />} value={branch.workingHours} label="Hours" />
-                  <InfoRow icon={<MapPin size={14} />} value={branch.location} label="Location" />
+                  <InfoRow 
+                    icon={<Clock size={14} />} 
+                    value={branch.workingHours} 
+                    label="Hours" 
+                    placeholder="No hours info" 
+                  />
+                  <InfoRow 
+                    icon={<MapPin size={14} />} 
+                    value={branch.location} 
+                    label="Location" 
+                    placeholder="No location info" 
+                  />
                 </div>
               </div>
             ))}
