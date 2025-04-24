@@ -1,22 +1,13 @@
 
 import { useState, useEffect } from "react";
 import SearchBar from "@/components/SearchBar";
-import SearchResultCard from "@/components/SearchResultCard";
-import NoResultCard from "@/components/NoResultCard";
-import BankFilter from "@/components/BankFilter";
+import SearchHeader from "@/components/SearchHeader";
+import WelcomeSection from "@/components/WelcomeSection";
+import SearchResultsSection from "@/components/SearchResultsSection";
+import Footer from "@/components/Footer";
 import { Bank, BankWithMatchedBranch } from "@/types/bank";
 import { searchBanks } from "@/utils/searchUtils";
 import { fetchBanks } from "@/api/bankApi";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationLink,
-} from "@/components/ui/pagination";
-
-const RESULTS_PER_PAGE = 3;
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,18 +33,6 @@ const Index = () => {
     };
     loadBanks();
   }, []);
-
-  const totalPages = Math.ceil(results.length / RESULTS_PER_PAGE);
-
-  // Slice results for current page
-  const paginatedResults = results.slice(
-    (currentPage - 1) * RESULTS_PER_PAGE,
-    currentPage * RESULTS_PER_PAGE
-  );
-  const moreCount =
-    results.length > currentPage * RESULTS_PER_PAGE
-      ? results.length - currentPage * RESULTS_PER_PAGE
-      : 0;
 
   const handleSearch = (term: string) => {
     setIsLoading(true);
@@ -88,138 +67,31 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-primary mb-3">
-            Bank Beacon Finder
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Quickly find and access bank information without having to search through pages of documentation
-          </p>
-        </div>
+        <SearchHeader />
 
         <div className="flex flex-col items-center mb-8">
           <SearchBar onSearch={handleSearch} loading={isLoading} />
         </div>
 
         {hasSearched && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                {!isLoading && (
-                  <h2 className="text-xl font-medium">
-                    {results.length > 0 ? (
-                      <>
-                        Found {results.length}{" "}
-                        {results.length === 1 ? "result" : "results"}
-                        {selectedBank ? ` in ${selectedBank}` : ""}
-                      </>
-                    ) : (
-                      <>No results found</>
-                    )}
-                  </h2>
-                )}
-              </div>
-              <BankFilter
-                banks={banks}
-                onSelectBank={handleBankFilter}
-                selectedBank={selectedBank}
-              />
-            </div>
-
-            {isLoading ? (
-              <div className="p-12 flex justify-center">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 border-4 border-t-primary rounded-full animate-spin mb-4"></div>
-                  <p className="text-muted-foreground">Searching banks...</p>
-                </div>
-              </div>
-            ) : results.length > 0 ? (
-              <div>
-                <div className="grid grid-cols-1 gap-4">
-                  {paginatedResults.map((result, index) => (
-                    <SearchResultCard
-                      key={`${result.bank_code}-${result.matchedBranch?.branch_code || index + (currentPage - 1) * RESULTS_PER_PAGE
-                        }`}
-                      result={result}
-                      searchTerm={searchTerm}
-                      index={index + (currentPage - 1) * RESULTS_PER_PAGE}
-                    />
-                  ))}
-                </div>
-                {moreCount > 0 && (
-                  <div className="flex justify-center my-4 text-muted-foreground">
-                    +{moreCount} more
-                  </div>
-                )}
-                {totalPages > 1 && (
-                  <Pagination className="mt-6">
-                    <PaginationContent>
-                      <PaginationItem>
-                        <PaginationPrevious
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            if (currentPage > 1) handlePageChange(currentPage - 1);
-                          }}
-                          className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                        />
-                      </PaginationItem>
-                      {Array.from({ length: totalPages }).map((_, idx) => (
-                        <PaginationItem key={idx}>
-                          <PaginationLink
-                            href="#"
-                            isActive={currentPage === idx + 1}
-                            onClick={e => {
-                              e.preventDefault();
-                              handlePageChange(idx + 1);
-                            }}
-                          >
-                            {idx + 1}
-                          </PaginationLink>
-                        </PaginationItem>
-                      ))}
-                      <PaginationItem>
-                        <PaginationNext
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            if (currentPage < totalPages) handlePageChange(currentPage + 1);
-                          }}
-                          className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                        />
-                      </PaginationItem>
-                    </PaginationContent>
-                  </Pagination>
-                )}
-              </div>
-            ) : (
-              <NoResultCard searchTerm={searchTerm} />
-            )}
-          </div>
+          <SearchResultsSection
+            searchTerm={searchTerm}
+            selectedBank={selectedBank}
+            results={results}
+            banks={banks}
+            isLoading={isLoading}
+            currentPage={currentPage}
+            onSelectBank={handleBankFilter}
+            onPageChange={handlePageChange}
+          />
         )}
 
-        {!hasSearched && !isLoading && (
-          <div className="text-center mt-16 py-6 px-4 bg-white rounded-lg shadow-sm border">
-            <h2 className="text-xl font-medium mb-3">Start your search</h2>
-            <p className="text-muted-foreground mb-6">
-              Enter a bank name, bank code, branch name or branch code to find what you're looking for
-            </p>
-            <div className="flex justify-center space-x-2 text-sm text-muted-foreground">
-              <span className="px-2 py-1 bg-secondary rounded">ABC Bank</span>
-              <span className="px-2 py-1 bg-secondary rounded">001</span>
-              <span className="px-2 py-1 bg-secondary rounded">Downtown</span>
-              <span className="px-2 py-1 bg-secondary rounded">0002</span>
-            </div>
-          </div>
-        )}
+        {!hasSearched && !isLoading && <WelcomeSection />}
 
-        <footer className="mt-20 text-center text-sm text-muted-foreground">
-          <p>Bank information search tool - Get instant access to bank and branch details</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
 };
 
 export default Index;
-
