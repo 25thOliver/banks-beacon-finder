@@ -1,0 +1,81 @@
+
+{
+  "banks": [
+    {
+      "id": 1,
+      "bank_name": "Kenya Commercial Bank Limited",
+      "aliases": ["KCB"],
+      "bank_code": "01",
+      "contactInfo": {
+        "phone1": "0711087000",
+        "phone2": "0732187000",
+        "email": "contactcentre@kcbgroup.com"
+      }
+    },
+    {
+      "id": 5,
+      "bank_name": "Bank of Baroda(Kenya Ltd)",
+      "aliases": ["BOB"],
+      "bank_code": "06",
+      "branches": [
+        {
+          "branch_code": "017",
+          "branch_name": "Muthithi road"
+        },
+        {
+          "branch_code": "000",
+          "branch_name": "Nairobi Main"
+        },
+        {
+          "branch_code": "002",
+          "branch_name": "Digo Road, Mombasa"
+        },
+        {
+          "branch_code": "004",
+          "branch_name": "Thika"
+        },
+        {
+          "branch_code": "005",
+          "branch_name": "Kisumu"
+        },
+        {
+          "branch_code": "006",
+          "branch_name": "Sarit Centre"
+        },
+        {
+          "branch_code": "007",
+          "branch_name": "Industrial Area"
+        },
+        {
+          "branch_code": "008",
+          "branch_name": "Eldoret"
+        },
+        {
+          "branch_code": "009",
+          "branch_name": "Nakuru"
+        },
+        {
+          "branch_code": "010",
+          "branch_name": "Kakamega"
+        },
+        {
+          "branch_code": "011",
+          "branch_name": "Nyali Mombasa"
+        },
+        {
+          "branch_code": "012",
+          "branch_name": "Meru"
+        },
+        {
+          "branch_code": "015",
+          "branch_name": "Diamond Plaza"
+        },
+        {
+          "branch_code": "016",
+          "branch_name": "Mombasa Road"
+        }
+      ],
+      "icon": "https://1000logos.net/wp-content/uploads/2021/06/Bank-of-Baroda-logo-500x281.png"
+    }
+  ]
+}

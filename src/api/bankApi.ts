@@ -1,8 +1,9 @@
 
-import { Bank } from "@/types/bank";
-import sampleData from "@/data/sample-data.json";
+import banksData from '../data/banks.json';
+import { Bank } from '@/types/bank';
 
 export const fetchBanks = async (): Promise<Bank[]> => {
-  // Using local JSON data instead of API call
-  return sampleData as Bank[];
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return banksData.banks;
 };
