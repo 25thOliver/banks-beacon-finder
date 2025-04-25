@@ -1,4 +1,3 @@
-
 import { BankWithMatchedBranch } from "@/types/bank";
 import { MapPin, Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -13,20 +12,21 @@ const InfoRow = ({
   icon,
   value,
   label,
+  className = "",
 }: {
   icon: React.ReactNode;
   value?: React.ReactNode;
   label: string;
+  className?: string;
 }) =>
   value ? (
-    <div className="flex items-center gap-2 text-sm mb-1">
+    <div className={`flex items-center gap-2 text-sm mb-1 ${className}`}>
       <span className="inline-flex items-center justify-center w-4 h-4 text-primary">{icon}</span>
       <span className="font-medium">{label}:</span>
       <span>{value}</span>
     </div>
   ) : null;
 
-// Default weekday and Saturday schedule
 const isOpenNow = (date = new Date()): boolean => {
   const day = date.getDay();
   const hour = date.getHours();
@@ -45,27 +45,36 @@ const formatContactInfo = (contactInfo?: any): string => {
   return contactParts.length ? contactParts.join(" / ") : "No contact info available";
 };
 
-
 const formatWorkingHours = (hours?: string): JSX.Element => {
-  const defaultHours = "Mon–Fri: 8:00 AM – 4:00 PM | Sat: 8:00 AM – 12:00 PM | Sun & Public Holidays: Closed";
+  const defaultHours = {
+    weekdays: "Mon–Fri: 8:00 AM – 4:00 PM",
+    saturday: "Sat: 8:00 AM – 12:00 PM",
+    holidays: "Sun & Public Holidays: Closed"
+  };
   const isDefault = !hours || hours.trim() === "";
 
   return (
-    <div className="flex items-center gap-1">
-      <span className={isDefault ? "text-red-600 font-medium" : ""}>
-        {isDefault ? defaultHours : hours}
-      </span>
-      {isDefault && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info size={16} className="text-muted-foreground cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent className="text-xs max-w-xs">
-              This is a default schedule and may not reflect the bank's actual working hours.
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+    <div className="flex flex-col gap-1">
+      {isDefault ? (
+        <>
+          <div className="text-red-600">
+            <div>{defaultHours.weekdays}</div>
+            <div>{defaultHours.saturday}</div>
+            <div>{defaultHours.holidays}</div>
+          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info size={16} className="text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="text-xs max-w-xs">
+                This is a default schedule and may not reflect the bank's actual working hours.
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </>
+      ) : (
+        <div>{hours}</div>
       )}
     </div>
   );
@@ -92,7 +101,6 @@ const SearchResultCard = ({
       style={{ "--index": index } as React.CSSProperties}
     >
       <div className="flex flex-wrap justify-between gap-4 items-start">
-        {/* Icon Section */}
         <div className="flex-shrink-0 mr-4">
           {result.icon ? (
             <img
@@ -108,7 +116,6 @@ const SearchResultCard = ({
           )}
         </div>
 
-        {/* Name + Status */}
         <div className="flex-1 min-w-0 mb-2">
           <h3
             className="font-medium text-lg"
@@ -130,14 +137,17 @@ const SearchResultCard = ({
         </div>
       </div>
 
-      {/* Info Section */}
-      <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl">
+      <div className="mt-2 grid grid-cols-1 sm:grid-cols-[1fr_1fr_2fr] gap-4 max-w-3xl">
         <InfoRow icon={<Phone size={16} />} value={contactDisplay} label="Contact" />
-        <InfoRow icon={<Clock size={16} />} value={formatWorkingHours(infoData.workingHours)} label="Hours" />
         <InfoRow icon={<MapPin size={16} />} value={infoData.location} label="Location" />
+        <InfoRow 
+          icon={<Clock size={16} />} 
+          value={formatWorkingHours(infoData.workingHours)} 
+          label="Hours" 
+          className="justify-self-end"
+        />
       </div>
 
-      {/* Branch Info */}
       {result.matchedBranch ? (
         <div className="mt-3 p-3 bg-secondary rounded-md">
           <div className="flex justify-between">
@@ -202,4 +212,3 @@ const SearchResultCard = ({
 };
 
 export default SearchResultCard;
-
