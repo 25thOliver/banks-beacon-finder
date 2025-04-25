@@ -1,4 +1,3 @@
-
 import { BankWithMatchedBranch } from "@/types/bank";
 import { MapPin, Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -138,14 +137,15 @@ const SearchResultCard = ({
         </div>
       </div>
 
-      <div className="mt-2 grid grid-cols-1 sm:grid-cols-[1fr_1fr_2fr] gap-4 max-w-3xl">
-        <InfoRow icon={<Phone size={16} />} value={contactDisplay} label="Contact" />
-        <InfoRow icon={<MapPin size={16} />} value={infoData.location} label="Location" />
+      <div className="mt-2 flex justify-between items-start max-w-3xl">
+        <div className="space-y-2">
+          <InfoRow icon={<Phone size={16} />} value={contactDisplay} label="Contact" />
+          <InfoRow icon={<MapPin size={16} />} value={infoData.location} label="Location" />
+        </div>
         <InfoRow 
           icon={<Clock size={16} />} 
           value={formatWorkingHours(infoData.workingHours)} 
           label="Hours" 
-          className="justify-self-end"
         />
       </div>
 
