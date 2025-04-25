@@ -1,3 +1,4 @@
+
 import { BankWithMatchedBranch } from "@/types/bank";
 import { MapPin, Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -61,7 +62,7 @@ const formatWorkingHours = (hours?: string): JSX.Element => {
               <Info size={16} className="text-muted-foreground cursor-help" />
             </TooltipTrigger>
             <TooltipContent className="text-xs max-w-xs">
-              This is a default schedule and may not reflect the bank’s actual working hours.
+              This is a default schedule and may not reflect the bank's actual working hours.
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -155,10 +156,10 @@ const SearchResultCard = ({
       ) : (
         <div className="mt-3">
           <h4 className="text-sm font-medium text-muted-foreground">
-            {result.branches?.length} {result.branches?.length === 1 ? "branch" : "branches"} available
+            {result.branches.length} {result.branches.length === 1 ? "branch" : "branches"} available
           </h4>
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {result.branches?.slice(0, 3).map((branch) => {
+            {result.branches.slice(0, 3).map((branch) => {
               const isBranchOpen = isOpenNow();
               return (
                 <div
@@ -188,9 +189,9 @@ const SearchResultCard = ({
                 </div>
               );
             })}
-            {result.branches?.length > 3 && (
+            {result.branches.length > 3 && (
               <div className="text-sm p-2 text-center text-muted-foreground">
-                +{result.branches?.length - 3} more
+                +{result.branches.length - 3} more
               </div>
             )}
           </div>
@@ -201,3 +202,4 @@ const SearchResultCard = ({
 };
 
 export default SearchResultCard;
+
