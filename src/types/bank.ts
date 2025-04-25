@@ -14,14 +14,15 @@ export interface Branch {
 }
 
 export interface Bank {
+  id?: number;
   bank_name: string;
   bank_code: string;
   icon?: string;
   contactInfo?: ContactInfo;
   workingHours?: string;
   location?: string;
-  branches: Branch[];
-  aliases?: string[]; // Added for the aliases field in your data
+  branches?: Branch[];
+  aliases?: string[];
 }
 
 export interface BankWithMatchedBranch extends Bank {
