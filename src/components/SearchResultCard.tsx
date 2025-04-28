@@ -1,6 +1,8 @@
 import { BankWithMatchedBranch } from "@/types/bank";
 import { Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { parseTimeStringToDate, isWeekend } from "@/utils/dateUtils";
+import { toast } from "sonner";
 
 interface SearchResultCardProps {
   result: BankWithMatchedBranch;
@@ -28,12 +30,17 @@ const InfoRow = ({
   ) : null;
 
 const isOpenNow = (date = new Date()): boolean => {
-  const day = date.getDay();
-  const hour = date.getHours();
-  if (day === 0) return false; // Sunday
-  if (day >= 1 && day <= 5) return hour >= 8 && hour < 16; // Weekdays
-  if (day === 6) return hour >= 8 && hour < 12; // Saturday
-  return false;
+  const startingTimeEveryday = "8:00am";
+  const endingTimeWeekdays = "4:00pm";
+  const endingTimeWeekends = "12:00pm";
+  
+  const startingDateTime = parseTimeStringToDate(startingTimeEveryday);
+  const endingDateTime = !isWeekend(date)
+    ? parseTimeStringToDate(endingTimeWeekdays)
+    : parseTimeStringToDate(endingTimeWeekends);
+
+  if (date.getDay() === 0) return false; // Sunday
+  return date > startingDateTime && date < endingDateTime;
 };
 
 const formatContactInfo = (contactInfo?: any): string => {
@@ -87,6 +94,17 @@ const LocationIcon = () => (
   </svg>
 );
 
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      toast.success("Bank code copied to clipboard");
+    })
+    .catch((err) => {
+      console.error("Failed to copy to clipboard:", err);
+      toast.error("Failed to copy to clipboard");
+    });
+};
+
 const SearchResultCard = ({
   result,
   searchTerm,
@@ -104,8 +122,9 @@ const SearchResultCard = ({
 
   return (
     <div
-      className="search-result bg-white rounded-lg border shadow-sm p-4 mb-3 hover:shadow-md transition-shadow"
+      className="search-result bg-white rounded-lg border shadow-sm p-4 mb-3 hover:shadow-md transition-shadow cursor-pointer"
       style={{ "--index": index } as React.CSSProperties}
+      onClick={() => copyToClipboard(result.bank_code)}
     >
       <div className="flex flex-wrap justify-between gap-4 items-start">
         <div className="flex-shrink-0 mr-4">
