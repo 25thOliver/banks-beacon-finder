@@ -1,4 +1,3 @@
-
 export const parseTimeStringToDate = (timeString: string): Date => {
   const now = new Date();
   const [time, meridian] = timeString.toLowerCase().match(/(\d+:\d+)(am|pm)/)?.slice(1) || [];
@@ -20,3 +19,8 @@ export const isWeekend = (date: Date = new Date()): boolean => {
 };
 
 export const formattedCurrentDateTime = new Date();
+
+export const isOpenNow = (date: Date = new Date()): boolean => {
+  const hour = date.getHours();
+  return hour >= 8 && hour < 16;
+};
