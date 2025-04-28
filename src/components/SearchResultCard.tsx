@@ -1,5 +1,5 @@
 import { BankWithMatchedBranch } from "@/types/bank";
-import { MapPin, Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
+import { Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SearchResultCardProps {
@@ -80,6 +80,13 @@ const formatWorkingHours = (hours?: string): JSX.Element => {
   );
 };
 
+const LocationIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="11" r="3" />
+    <path d="M17.657 16.657L12 22L6.343 16.657C4.219 14.534 4.219 11.07 6.343 8.946C8.466 6.822 11.93 6.822 14.053 8.946C16.177 11.07 16.177 14.534 14.053 16.657Z" />
+  </svg>
+);
+
 const SearchResultCard = ({
   result,
   searchTerm,
@@ -140,12 +147,12 @@ const SearchResultCard = ({
       <div className="mt-2 flex justify-between items-start max-w-3xl">
         <div className="space-y-2">
           <InfoRow icon={<Phone size={16} />} value={contactDisplay} label="Contact" />
-          <InfoRow icon={<MapPin size={16} />} value={infoData.location} label="Location" />
+          <InfoRow icon={<LocationIcon />} value={infoData.location} label="Location" />
         </div>
         <InfoRow 
           icon={<Clock size={16} />} 
           value={formatWorkingHours(infoData.workingHours)} 
-          label="Hours" 
+          label="Working Hours" 
         />
       </div>
 
