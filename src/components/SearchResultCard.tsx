@@ -1,98 +1,20 @@
+
 import { BankWithMatchedBranch } from "@/types/bank";
-import { Phone, Clock, Image as ImageIcon, Info } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { parseTimeStringToDate, isWeekend } from "@/utils/dateUtils";
+import { Phone, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { isOpenNow } from "@/utils/dateUtils";
+import { formatContactInfo, highlightMatch } from "@/utils/formatUtils";
+import BankLogo from "./bank/BankLogo";
+import InfoRow from "./bank/InfoRow";
+import WorkingHours from "./bank/WorkingHours";
+import BranchInfo from "./bank/BranchInfo";
+import { LocationIcon } from "./bank/icons/LocationIcon";
 
 interface SearchResultCardProps {
   result: BankWithMatchedBranch;
   searchTerm: string;
   index: number;
 }
-
-const InfoRow = ({
-  icon,
-  value,
-  label,
-  className = "",
-}: {
-  icon: React.ReactNode;
-  value?: React.ReactNode;
-  label: string;
-  className?: string;
-}) =>
-  value ? (
-    <div className={`flex items-center gap-2 text-sm mb-1 ${className}`}>
-      <span className="inline-flex items-center justify-center w-4 h-4 text-primary">{icon}</span>
-      <span className="font-medium">{label}:</span>
-      <span>{value}</span>
-    </div>
-  ) : null;
-
-const isOpenNow = (date = new Date()): boolean => {
-  const startingTimeEveryday = "8:00am";
-  const endingTimeWeekdays = "4:00pm";
-  const endingTimeWeekends = "12:00pm";
-  
-  const startingDateTime = parseTimeStringToDate(startingTimeEveryday);
-  const endingDateTime = !isWeekend(date)
-    ? parseTimeStringToDate(endingTimeWeekdays)
-    : parseTimeStringToDate(endingTimeWeekends);
-
-  if (date.getDay() === 0) return false; // Sunday
-  return date > startingDateTime && date < endingDateTime;
-};
-
-const formatContactInfo = (contactInfo?: any): string => {
-  if (!contactInfo || typeof contactInfo !== "object") return "No contact info available";
-
-  const contactParts = [contactInfo.phone1, contactInfo.phone2, contactInfo.email]
-    .filter((val) => val && val.trim() !== "");
-
-  return contactParts.length ? contactParts.join(" / ") : "No contact info available";
-};
-
-const formatWorkingHours = (hours?: string): JSX.Element => {
-  const defaultHours = {
-    weekdays: "Mon–Fri: 8:00 AM – 4:00 PM",
-    saturday: "Sat: 8:00 AM – 12:00 PM",
-    holidays: "Sun & Public Holidays: Closed"
-  };
-  const isDefault = !hours || hours.trim() === "";
-
-  return (
-    <div className="flex flex-col gap-1">
-      {isDefault ? (
-        <>
-          <div className="text-red-600">
-            <div>{defaultHours.weekdays}</div>
-            <div>{defaultHours.saturday}</div>
-            <div>{defaultHours.holidays}</div>
-          </div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info size={16} className="text-muted-foreground cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent className="text-xs max-w-xs">
-                This is a default schedule and may not reflect the bank's actual working hours.
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </>
-      ) : (
-        <div>{hours}</div>
-      )}
-    </div>
-  );
-};
-
-const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="11" r="3" />
-    <path d="M17.657 16.657L12 22L6.343 16.657C4.219 14.534 4.219 11.07 6.343 8.946C8.466 6.822 11.93 6.822 14.053 8.946C16.177 11.07 16.177 14.534 14.053 16.657Z" />
-  </svg>
-);
 
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
@@ -105,17 +27,7 @@ const copyToClipboard = (text: string) => {
     });
 };
 
-const SearchResultCard = ({
-  result,
-  searchTerm,
-  index,
-}: SearchResultCardProps) => {
-  const highlightMatch = (text: string) => {
-    if (!searchTerm || searchTerm.length < 2) return text;
-    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-    return text.replace(regex, '<span class="highlight">$1</span>');
-  };
-
+const SearchResultCard = ({ result, searchTerm, index }: SearchResultCardProps) => {
   const infoData = result.matchedBranch || result;
   const contactDisplay = formatContactInfo(infoData.contactInfo);
   const openNow = isOpenNow();
@@ -127,29 +39,16 @@ const SearchResultCard = ({
       onClick={() => copyToClipboard(result.bank_code)}
     >
       <div className="flex flex-wrap justify-between gap-4 items-start">
-        <div className="flex-shrink-0 mr-4">
-          {result.icon ? (
-            <img
-              src={result.icon}
-              alt={`${result.bank_name} logo`}
-              className="w-12 h-12 object-contain rounded bg-gray-50 border"
-              loading="lazy"
-            />
-          ) : (
-            <span className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded border text-gray-400">
-              <ImageIcon size={32} />
-            </span>
-          )}
-        </div>
+        <BankLogo icon={result.icon} bankName={result.bank_name} />
 
         <div className="flex-1 min-w-0 mb-2">
           <h3
             className="font-medium text-lg"
-            dangerouslySetInnerHTML={{ __html: highlightMatch(result.bank_name) }}
+            dangerouslySetInnerHTML={{ __html: highlightMatch(result.bank_name, searchTerm) }}
           />
           <div className="inline-flex items-center px-2 py-1 bg-primary/10 rounded text-sm font-medium text-primary">
-            Bank Code:{" "}
-            <span dangerouslySetInnerHTML={{ __html: highlightMatch(result.bank_code) }} />
+            Bank Code: {" "}
+            <span dangerouslySetInnerHTML={{ __html: highlightMatch(result.bank_code, searchTerm) }} />
           </div>
           <div className="mt-1">
             <span
@@ -170,7 +69,7 @@ const SearchResultCard = ({
         </div>
         <InfoRow 
           icon={<Clock size={16} />} 
-          value={formatWorkingHours(infoData.workingHours)} 
+          value={<WorkingHours hours={infoData.workingHours} />} 
           label="Working Hours" 
         />
       </div>
@@ -180,12 +79,12 @@ const SearchResultCard = ({
           <div className="flex justify-between">
             <h4
               className="font-medium"
-              dangerouslySetInnerHTML={{ __html: highlightMatch(result.matchedBranch.branch_name) }}
+              dangerouslySetInnerHTML={{ __html: highlightMatch(result.matchedBranch.branch_name, searchTerm) }}
             />
             <div className="inline-flex items-center px-2 py-1 bg-accent/10 rounded text-xs font-medium text-accent">
-              Branch Code:{" "}
+              Branch Code: {" "}
               <span
-                dangerouslySetInnerHTML={{ __html: highlightMatch(result.matchedBranch.branch_code) }}
+                dangerouslySetInnerHTML={{ __html: highlightMatch(result.matchedBranch.branch_code, searchTerm) }}
               />
             </div>
           </div>
@@ -196,36 +95,14 @@ const SearchResultCard = ({
             {result.branches.length} {result.branches.length === 1 ? "branch" : "branches"} available
           </h4>
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {result.branches.slice(0, 3).map((branch) => {
-              const isBranchOpen = isOpenNow();
-              return (
-                <div
-                  key={branch.branch_code}
-                  className="text-sm p-2 bg-secondary rounded flex flex-col gap-1"
-                >
-                  <div className="flex justify-between items-center">
-                    <span
-                      dangerouslySetInnerHTML={{ __html: highlightMatch(branch.branch_name) }}
-                    />
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-muted-foreground">{branch.branch_code}</span>
-                      <span
-                        className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full ${
-                          isBranchOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                        }`}
-                      >
-                        {isBranchOpen ? "Open" : "Closed"}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    <InfoRow icon={<Phone size={14} />} value={formatContactInfo(branch.contactInfo)} label="Contact" />
-                    <InfoRow icon={<Clock size={14} />} value={formatWorkingHours(branch.workingHours)} label="Hours" />
-                    <InfoRow icon={<MapPin size={14} />} value={branch.location} label="Location" />
-                  </div>
-                </div>
-              );
-            })}
+            {result.branches.slice(0, 3).map((branch) => (
+              <BranchInfo
+                key={branch.branch_code}
+                branch={branch}
+                searchTerm={searchTerm}
+                highlightMatch={(text) => highlightMatch(text, searchTerm)}
+              />
+            ))}
             {result.branches.length > 3 && (
               <div className="text-sm p-2 text-center text-muted-foreground">
                 +{result.branches.length - 3} more
