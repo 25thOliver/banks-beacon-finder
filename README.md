@@ -1,73 +1,95 @@
-# Welcome to your Lovable project
 
-## Project info
+# Bank Beacon Finder
 
-**URL**: https://lovable.dev/projects/58d865a1-c3c0-4f6c-90a5-dbf5eff9964a
+A modern web application designed to help users quickly search and find bank information without having to search through pages of documentation.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Powerful Search**: Search for banks by name, bank code, branch name, or branch code
+- **Bank Filtering**: Filter search results by specific bank names
+- **Detailed Information**: View comprehensive information including:
+  - Bank names and codes
+  - Branch details and codes
+  - Contact information
+  - Working hours
+  - Location data
+- **Real-time Status**: See which banks are currently open or closed
+- **Quick Copy**: Click on any bank card to copy its bank code to your clipboard
+- **Responsive Design**: Works on desktop and mobile devices
+- **Pagination**: Navigate through multiple search results easily
 
-**Use Lovable**
+## Usage
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/58d865a1-c3c0-4f6c-90a5-dbf5eff9964a) and start prompting.
+1. Enter a bank name, code, branch name, or branch code in the search bar
+2. Use the bank filter dropdown to narrow down results by specific banks
+3. Click on any search result to copy the bank code to your clipboard
+4. Navigate multiple results using the pagination controls
 
-Changes made via Lovable will be committed automatically to this repo.
+## Technical Details
 
-**Use your preferred IDE**
+This application is built with:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- React + TypeScript for robust frontend development
+- Tailwind CSS for responsive and elegant styling
+- Shadcn UI components for a consistent design system
+- React Router for navigation
+- React Query for data fetching
+- Lucide React for scalable icons
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Date and Time Utilities
 
-Follow these steps:
+The application includes several utility functions for handling dates and times:
 
+- `parseTimeStringToDate`: Converts time strings (e.g., "9:00am") to JavaScript Date objects
+- `isWeekend`: Determines if a given date falls on a weekend
+- `isOpenNow`: Checks if banks are currently open based on the time of day
+- `formatContactInfo`: Formats contact information for display
+
+## Component Structure
+
+The application is built with a modular component structure:
+
+- `SearchBar`: Handles user input for searches
+- `SearchResultCard`: Displays search results with bank and branch information
+- `BankFilter`: Allows filtering search results by bank
+- `InfoRow`: Reusable component for displaying labeled information
+- `WorkingHours`: Displays formatted working hours
+- `BranchInfo`: Shows detailed branch information
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+git clone <repository-url>
+cd bank-beacon-finder
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies
+```sh
+npm install
+# or
+yarn install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server
+```sh
+npm run dev
+# or
+yarn dev
+```
 
-**Use GitHub Codespaces**
+4. Open your browser and navigate to `http://localhost:5173`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Contributing
 
-## What technologies are used for this project?
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This project is built with:
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/58d865a1-c3c0-4f6c-90a5-dbf5eff9964a) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.
