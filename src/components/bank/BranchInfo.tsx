@@ -2,7 +2,7 @@
 import { Phone, Clock } from "lucide-react";
 import InfoRow from "./InfoRow";
 import { Branch } from "@/types/bank";
-import { formatContactInfo } from "@/utils/formatUtils";
+import { formatContactInfo, highlightMatch } from "@/utils/formatUtils";
 import WorkingHours from "./WorkingHours";
 import { isOpenNow } from "@/utils/dateUtils";
 import { LocationIcon } from "./icons/LocationIcon";
@@ -14,7 +14,7 @@ interface BranchInfoProps {
 }
 
 const BranchInfo = ({ branch, searchTerm, highlightMatch }: BranchInfoProps) => {
-  const isBranchOpen = isOpenNow();
+  const isBranchOpen = isOpenNow(branch.workingHours);
 
   return (
     <div className="text-sm p-2 bg-secondary rounded flex flex-col gap-1">

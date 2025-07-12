@@ -61,6 +61,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Banking specific colors
+				bank: {
+					primary: 'hsl(var(--bank-primary))',
+					secondary: 'hsl(var(--bank-secondary))',
+					success: 'hsl(var(--bank-success))',
+					warning: 'hsl(var(--bank-warning))',
+					info: 'hsl(var(--bank-info))',
+					light: 'hsl(var(--bank-light))',
+					dark: 'hsl(var(--bank-dark))'
 				}
 			},
 			borderRadius: {

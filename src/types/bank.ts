@@ -3,6 +3,7 @@ export interface ContactInfo {
   phone1?: string;
   phone2?: string;
   email?: string;
+  website?: string;
 }
 
 export interface Branch {
@@ -27,4 +28,6 @@ export interface Bank {
 
 export interface BankWithMatchedBranch extends Bank {
   matchedBranch?: Branch;
+  matchedBranches?: Branch[];
+  searchScore?: number;
 }

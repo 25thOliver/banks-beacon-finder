@@ -3,6 +3,8 @@ import React from "react";
 import SearchResultCard from "@/components/SearchResultCard";
 import NoResultCard from "@/components/NoResultCard";
 import BankFilter from "@/components/BankFilter";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import SearchResultSkeleton from "@/components/ui/SearchResultSkeleton";
 import { Bank, BankWithMatchedBranch } from "@/types/bank";
 import {
   Pagination,
@@ -75,10 +77,13 @@ const SearchResultsSection: React.FC<SearchResultsSectionProps> = ({
       </div>
 
       {isLoading ? (
-        <div className="p-12 flex justify-center">
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 border-4 border-t-primary rounded-full animate-spin mb-4"></div>
-            <p className="text-muted-foreground">Searching banks...</p>
+        <div className="space-y-4">
+          {/* Show skeleton loaders for better UX */}
+          {[1, 2, 3].map((i) => (
+            <SearchResultSkeleton key={i} />
+          ))}
+          <div className="flex justify-center py-4">
+            <LoadingSpinner text="Searching banks..." size="lg" />
           </div>
         </div>
       ) : results.length > 0 ? (
