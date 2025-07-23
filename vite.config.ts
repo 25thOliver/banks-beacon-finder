@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/Kenyan-Banks-Beacon-Finder/',
+  base: mode === 'gh-pages' ? '/banks-beacon-finder/' : '/',
   server: {
     host: "::",
     port: 8080,
