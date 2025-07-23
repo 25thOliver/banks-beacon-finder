@@ -5,6 +5,10 @@ import { Building2, MapPin, Shield } from "lucide-react";
 const SearchHeader = () => {
   return (
     <div className="text-center mb-12">
+      {/* Disclaimer Bar */}
+      <div className="bg-yellow-100 text-yellow-900 border border-yellow-300 rounded-md px-4 py-2 mb-6 font-medium shadow-sm">
+        Disclaimer: The contact information displayed may be incorrect. We are still working to ensure we have the right information for all contacts.
+      </div>
       <div className="flex justify-center items-center mb-4">
         <div className="bg-bank-primary/10 p-3 rounded-full mr-4">
           <Building2 size={32} className="text-bank-primary" />
