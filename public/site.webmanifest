@@ -1,0 +1,8 @@
+{
+  "name": "Banks Beacon Finder",
+  "short_name": "BanksFinder",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Find Kenyan banks and branches easily."
+} 
