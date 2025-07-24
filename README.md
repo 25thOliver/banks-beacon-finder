@@ -1,6 +1,8 @@
 
 # Bank Beacon Finder
 
+Check it: https://banks-beacon-finder.vercel.app/
+
 A modern web application designed to help users quickly search and find bank information without having to search through pages of documentation.
 
 ## Features
